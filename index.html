@@ -6,193 +6,171 @@
     <title>3D Image View</title>
     <!-- Pannellum CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
-    <!--/static/3dCSS.css--->
     <style>
-        #content{
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Cambria, Georgia, Times, 'Times New Roman', serif;
+        }
+
+        #content {
             min-height: 100vh;
-            width:100%;
-            background-image:linear-gradient(rgba(4,10,30,0.9),rgba(4,10,30,0.9)),url("https://i.pinimg.com/originals/dc/b9/df/dcb9df7de99fe8acf6ada78de64fd26f.jpg");
+            width: 100%;
+            background-image: linear-gradient(rgba(4,10,30,0.9),rgba(4,10,30,0.9)), url("https://i.pinimg.com/originals/dc/b9/df/dcb9df7de99fe8acf6ada78de64fd26f.jpg");
             background-position: center;
             background-size: cover;
-            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
-        
+
         #content.hide-background {
             background-image: none;
         }
-        
-        #para p{
-            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-            line-height: 1.5;
-            color: #fff;
-            font-style: oblique;
-        }
-        #click{
-            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-            line-height: 1.5;
-            color: #fff;
-            font-style: oblique;
-        }
-        body {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            margin: 0;
-            padding: 0;
-        }
-        
+
         #img {
-            margin-top: 150px;
-            margin-right: 20px;
-            margin-left: 25px; /* Adjust the margin as needed */
+            margin: 50px 20px;
         }
-        
+
         #img img {
             width: 300px;
             height: 300px;
+            cursor: pointer;
         }
-        
-        #content {
-            display: flex;
-            align-items: center;
+
+        #para {
+            max-width: 600px;
+            color: #fff;
         }
-        
-        #content p {
-            margin-left: 1em;
+
+        #para p {
+            line-height: 1.5;
+            font-style: oblique;
         }
-        
+
         #panorama {
             display: none;
             width: 100%;
             height: 100vh;
-            margin-top: 60px;
-            z-index: 0;
         }
-        
-        /* Add more styles for the panorama container if needed */
-        
+
         .custom-tooltip span {
-            color: red; /* Change this to your desired color */
+            color: red;
         }
-        
-        #toggleButton {
+
+        #toggleButton, #bttn, #maps {
             position: absolute;
+            padding: 10px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        #toggleButton:hover, #bttn:hover, #maps:hover {
+            background-color: #2980b9;
+        }
+
+        #toggleButton {
             top: 10px;
             left: 10px;
-            padding: 10px;
-            background-color: #3498db;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            text-align: center;
         }
-        
-        #toggleButton:hover {
-            background-color: #2980b9;
-        }
-        
+
         #bttn {
-            position: absolute;
-            top: 10px;
+            top: 50px;
             right: 10px;
-            padding: 10px;
-            background-color: #3498db;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            text-align: center;
         }
-        
-        #bttn:hover {
-            background-color: #2980b9;
+
+        #maps {
+            top: 90px;
+            right: 10px;
         }
-        
-        #bttn a{
+
+        #bttn a, #maps a {
             color: #fff;
             text-decoration: none;
         }
-</style>
+    </style>
 </head>
 <body>
     <div id="content">
-        <!-- Your content goes here -->
-        <div id="img"><img src="PSX_20240108_233547.jpg"><p id="click">Click Image</p></div>
-        <div id="para"><p>The estimated 2.2 million inhabitants of Paris are all very proud to be Parisian, and so they should be. Which city has been more romanticized in literature and film? In fact there are 65 films (and counting) that star the Eiffel Tower as a significant feature. And that's just a small fraction of the number of films that merely feature the Eiffel Tower either as a symbol of French or European lifestyle or as an example of something beautiful.
-
-            Despite its long, and often blood splattered history, Paris still retains the title of the most romantic city in the world. With the majestic sweeping boulevards and the regal architecture, it is hard not to be enchanted and seduced by this mysterious, copacetic city.</p></div>
-        
+        <div id="img">
+            <img src="PSX_20240108_233547.jpg" alt="Clickable Image">
+            <p id="click">Click Image</p>
+        </div>
+        <div id="para">
+            <p>The estimated 2.2 million inhabitants of Paris are all very proud to be Parisian, and so they should be. Which city has been more romanticized in literature and film? In fact, there are 65 films (and counting) that star the Eiffel Tower as a significant feature. And that's just a small fraction of the number of films that merely feature the Eiffel Tower either as a symbol of French or European lifestyle or as an example of something beautiful.</p>
+            <p>Despite its long, and often blood-splattered history, Paris still retains the title of the most romantic city in the world. With the majestic sweeping boulevards and the regal architecture, it is hard not to be enchanted and seduced by this mysterious, copacetic city.</p>
+        </div>
     </div>
+
+    <!-- Panorama viewer -->
     <div id="panorama"></div>
+
+    <!-- Navigation Buttons -->
     <button id="toggleButton">Home</button>
-    <!-- <div id="bttn"><a href="/second">PDF view</a></div> -->
     <div id="bttn"><a href="second.html">PDF view</a></div>
+    <div id="maps"><a href="map.html">Map</a></div>
 
     <!-- Pannellum JS -->
     <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
-    <script src="pannell.js"></script>  <!--"/static/pannell.js"-->
-    <!-- <a href="/templates/second.html">Go to Second Page</a> -->
 
-
-    <!--Javascript pannellum.js-->
+    <!-- Javascript for Image Click and Panorama Toggle -->
     <script>
         var img = document.querySelector('img');
         img.addEventListener('click', function () {
-                    document.getElementById('img').style.display = 'none';
-                    document.getElementById('para').style.display = 'none';
-                    document.getElementById('content').style.display = 'none';
-                    panoramaLoad();
+            document.getElementById('img').style.display = 'none';
+            document.getElementById('para').style.display = 'none';
+            document.getElementById('content').style.display = 'none';
+            panoramaLoad();
         });
 
-        // Toggle between map and panorama on button click
+        // Toggle between panorama and content on Home button click
         const toggleButton = document.getElementById('toggleButton');
         toggleButton.addEventListener('click', function () {
-                    const panoramaContainer = document.getElementById('panorama');
-                    panoramaContainer.style.display = 'none'; // Hide the panorama
-                    panoramaContainer.innerHTML = ''; // Clear the panorama container content
+            const panoramaContainer = document.getElementById('panorama');
+            panoramaContainer.style.display = 'none'; // Hide panorama
+            panoramaContainer.innerHTML = ''; // Clear content
 
-                    const imgContainer = document.getElementById('img');
-                    imgContainer.style.display = 'block'; // Show the map
-                    const paraContainer = document.getElementById('para');
-                    paraContainer.style.display = 'block';
-
-                    // Remove the hide-background class to show the background
-                    document.getElementById('content').style.display = 'flex';
+            document.getElementById('img').style.display = 'block';
+            document.getElementById('para').style.display = 'block';
+            document.getElementById('content').style.display = 'flex'; // Restore content
         });
 
         function panoramaLoad() {
-                    var panoramaContainer = document.getElementById('panorama');
-                    panoramaContainer.style.display = 'block'; // Show the panorama container
+            var panoramaContainer = document.getElementById('panorama');
+            panoramaContainer.style.display = 'block'; // Show the panorama container
 
-                    var panorama = pannellum.viewer('panorama', {
-                        type: "equirectangular",
-                        panorama:"PSX_20240108_233547.jpg", //"static/360photoconverter.jpg"
-                        autoLoad: true,
-                        default_fov: 90,
-                        showControls: true,
-                        autoRotate: -5,
-                        hotSpots: Array.from({ length: 6 }, (_, i) => ({
-                            pitch: 0,
-                            yaw: i * 60,
-                            cssClass: "custom-hotspot",
-                            createTooltipFunc: hotspot,
-                            createTooltipArgs: `${i * 60} degrees`
-                        }))
-                    });
+            pannellum.viewer('panorama', {
+                type: "equirectangular",
+                panorama: "PSX_20240108_233547.jpg",
+                autoLoad: true,
+                default_fov: 90,
+                showControls: true,
+                autoRotate: -5,
+                hotSpots: Array.from({ length: 6 }, (_, i) => ({
+                    pitch: 0,
+                    yaw: i * 60,
+                    cssClass: "custom-hotspot",
+                    createTooltipFunc: hotspot,
+                    createTooltipArgs: `${i * 60} degrees`
+                }))
+            });
 
-                    function hotspot(hotSpotDiv, args) {
-                        hotSpotDiv.classList.add('custom-tooltip');
-                        var span = document.createElement('span');
-                        span.innerHTML = args;
-                        hotSpotDiv.appendChild(span);
-                        span.style.width = span.scrollWidth - 20 + 'px';
-                        span.style.marginLeft = -(span.scrollWidth - hotSpotDiv.offsetWidth) / 2 + 'px';
-                        span.style.marginTop = -span.scrollHeight - 12 + 'px';
-                    }
-                }
+            function hotspot(hotSpotDiv, args) {
+                hotSpotDiv.classList.add('custom-tooltip');
+                var span = document.createElement('span');
+                span.innerHTML = args;
+                hotSpotDiv.appendChild(span);
+                span.style.width = span.scrollWidth - 20 + 'px';
+                span.style.marginLeft = -(span.scrollWidth - hotSpotDiv.offsetWidth) / 2 + 'px';
+                span.style.marginTop = -span.scrollHeight - 12 + 'px';
+            }
+        }
     </script>
 </body>
 </html>
